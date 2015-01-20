@@ -286,25 +286,11 @@
       if ( ! data ) {
 
         $this.data('sidr', name);
-        if('ontouchstart' in document.documentElement) {
-          $this.bind('touchstart', function(e) {
-            var theEvent = e.originalEvent.touches[0];
-            this.touched = e.timeStamp;
-          });
-          $this.bind('touchend', function(e) {
-            var delta = Math.abs(e.timeStamp - this.touched);
-            if(delta < 200) {
-              e.preventDefault();
-              methods.toggle(name);
-            }
-          });
-        }
-        else {
-          $this.click(function(e) {
-            e.preventDefault();
-            methods.toggle(name);
-          });
-        }
+        // 2sic - Temporary fix for Android 4.2.x standard browser
+        $this.click(function(e) {
+          e.preventDefault();
+          methods.toggle(name);
+        });
       }
     });
   };
